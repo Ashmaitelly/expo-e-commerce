@@ -9,31 +9,38 @@ import { Home } from "./screens/Home";
 import { Settings } from "./screens/Settings";
 import MaterialIcons from "@react-native-vector-icons/material-icons";
 import i18n from "../i18n/i18n";
+import { useTranslation } from "react-i18next";
 
-const HomeTabs = createBottomTabNavigator({
-  screens: {
-    Home: {
-      screen: Home,
-      options: {
-        title: i18n.t("tabs.home"),
-        tabBarLabel: i18n.t("tabs.home"),
-        tabBarIcon: ({ color, size }) => (
-          <MaterialIcons name="home" color={color} size={size} />
-        ),
-      },
-    },
-    Settings: {
-      screen: Settings,
-      options: {
-        title: i18n.t("tabs.settings"),
-        tabBarLabel: i18n.t("tabs.settings"),
-        tabBarIcon: ({ color, size }) => (
-          <MaterialIcons name="settings" color={color} size={size} />
-        ),
-      },
-    },
-  },
-});
+export function HomeTabs() {
+  const HomeTabs = createBottomTabNavigator();
+  const { t } = useTranslation();
+  return (
+    <HomeTabs.Navigator>
+      <HomeTabs.Screen
+        name="Home"
+        component={Home}
+        options={{
+          title: t("tabs.home"),
+          tabBarLabel: t("tabs.home"),
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="home" color={color} size={size} />
+          ),
+        }}
+      />
+      <HomeTabs.Screen
+        name="Settings"
+        component={Settings}
+        options={{
+          title: t("tabs.settings"),
+          tabBarLabel: t("tabs.settings"),
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="settings" color={color} size={size} />
+          ),
+        }}
+      />
+    </HomeTabs.Navigator>
+  );
+}
 
 const RootStack = createNativeStackNavigator({
   screens: {

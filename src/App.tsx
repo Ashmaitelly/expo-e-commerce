@@ -9,6 +9,7 @@ import { Navigation } from "./navigation";
 import { Provider } from "react-redux";
 import { persistor, store } from "./redux/store";
 import { PersistGate } from "redux-persist/integration/react";
+import { useTranslation } from "react-i18next";
 
 Asset.loadAsync([
   ...NavigationAssets,
@@ -25,17 +26,25 @@ export function App() {
 
   const theme = colorScheme === "dark" ? DarkTheme : DefaultTheme;
 
+  const { i18n } = useTranslation();
+
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+      <PersistGate
+        loading={null}
+        persistor={persistor}
+        onBeforeLift={() => {
+          const lang = store.getState().app.language;
+          i18n.changeLanguage(lang);
+          SplashScreen.hideAsync();
+        }}
+      >
         <Navigation
           theme={theme}
+          i18nIsDynamicList
           linking={{
             enabled: "auto",
             prefixes: [prefix],
-          }}
-          onReady={() => {
-            SplashScreen.hideAsync();
           }}
         />
       </PersistGate>
