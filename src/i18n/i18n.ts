@@ -10,15 +10,10 @@ const resources = {
   ar: { translation: ar },
 };
 
-const fallback = { languageTag: "en", isRTL: false };
-
-const { languageTag, isRTL } =
-  RNLocalize.findBestAvailableLanguage(Object.keys(resources)) || fallback;
-
 i18n.use(initReactI18next).init({
   compatibilityJSON: "v3",
   resources,
-  lng: languageTag,
+  lng: "en",
   fallbackLng: "en",
   interpolation: {
     escapeValue: false,
