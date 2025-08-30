@@ -1,11 +1,14 @@
+import MaterialIcons from "@react-native-vector-icons/material-icons";
 import { Button, Text } from "@react-navigation/elements";
-import { StyleSheet, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
+import SearchBar from "../../components/SearchBar";
 
 export function Home() {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <Text>Home Screen</Text>
-      <Button screen="Search">Go to Search</Button>
+      <SearchBar disabled />
     </View>
   );
 }
@@ -13,8 +16,21 @@ export function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
     alignItems: "center",
     gap: 10,
+  },
+
+  searchContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#f2f2f2",
+    borderRadius: 12,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    marginVertical: 10,
+  },
+  placeholder: {
+    color: "#666",
+    fontSize: 16,
   },
 });

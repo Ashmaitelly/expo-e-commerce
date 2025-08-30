@@ -5,7 +5,7 @@ import { createURL } from "expo-linking";
 import * as SplashScreen from "expo-splash-screen";
 import * as React from "react";
 import { useColorScheme } from "react-native";
-import { navigate, Navigation } from "./navigation";
+import { Navigation } from "./navigation";
 import { Provider } from "react-redux";
 import { persistor, store } from "./redux/store";
 import { PersistGate } from "redux-persist/integration/react";
@@ -13,8 +13,8 @@ import { useTranslation } from "react-i18next";
 
 Asset.loadAsync([
   ...NavigationAssets,
-  require("./assets/newspaper.png"),
-  require("./assets/bell.png"),
+  require("./assets/SamsungA56.png"),
+  require("./assets/iphone12.png"),
 ]);
 
 SplashScreen.preventAutoHideAsync();
