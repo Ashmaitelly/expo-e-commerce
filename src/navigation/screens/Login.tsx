@@ -4,7 +4,7 @@ import {
   useNavigation,
   useTheme,
 } from "@react-navigation/native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Button,
@@ -29,15 +29,18 @@ export function Login() {
   //state
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
+  //use effect to clear error when changing values
+  useEffect(() => {
+    setError(false);
+  }, [password, username]);
 
   return (
     <KeyboardAvoidingView
       style={[styles.container]}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <Text style={[styles.title, { color: colors.text }]}>
-        {t("welcome") || "Login"}
-      </Text>
+      <Text style={[styles.title, { color: colors.text }]}>{t("welcome")}</Text>
 
       <TextInput
         style={[styles.input, { borderColor: "grey", color: colors.text }]}
@@ -65,6 +68,8 @@ export function Login() {
           if (authenticateUser(username, password)) {
             dispatch(login(username));
             navigation.dispatch(StackActions.replace("HomeTabs"));
+          } else {
+            setError(true);
           }
         }}
       >
@@ -72,6 +77,9 @@ export function Login() {
           {t("login.login")}
         </Text>
       </TouchableOpacity>
+      <Text style={{ color: colors.notification, marginTop: 10 }}>
+        {error ? t("login.error") : ""}
+      </Text>
     </KeyboardAvoidingView>
   );
 }
