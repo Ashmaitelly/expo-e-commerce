@@ -3,8 +3,8 @@ import { Button, StyleSheet, View } from "react-native";
 import LanguageToggle from "../../components/LanguageToggle";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
-import { logout } from "../../redux/slices/userSlice";
 import { StackActions, useNavigation } from "@react-navigation/native";
+import { logout } from "../../redux/slices/appSlice";
 
 export function Settings() {
   const { t } = useTranslation();
@@ -15,7 +15,7 @@ export function Settings() {
       <Text>{t("screens.settings")}</Text>
       <LanguageToggle />
       <Button
-        title={t("buttons.logout")}
+        title={t("login.logout")}
         onPress={() => {
           dispatch(logout());
           navigation.dispatch(StackActions.replace("Login"));

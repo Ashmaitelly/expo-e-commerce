@@ -6,7 +6,9 @@
     "search": "بحث",
     "details": "تفاصيل"
   },
-  "buttons": {
+  "login": {
+    "username": "اسم المستخدم",
+    "password": "كلمة المرور",
     "login": "تسجيل الدخول",
     "logout": "تسجيل الخروج"
   }

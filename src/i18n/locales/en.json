@@ -6,7 +6,9 @@
     "search": "Search",
     "details": "Details"
   },
-  "buttons": {
+  "login": {
+    "username": "Username",
+    "password": "Password",
     "login": "Login",
     "logout": "Logout"
   }

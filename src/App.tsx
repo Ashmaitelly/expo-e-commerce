@@ -5,7 +5,7 @@ import { createURL } from "expo-linking";
 import * as SplashScreen from "expo-splash-screen";
 import * as React from "react";
 import { useColorScheme } from "react-native";
-import { Navigation } from "./navigation";
+import { navigate, Navigation } from "./navigation";
 import { Provider } from "react-redux";
 import { persistor, store } from "./redux/store";
 import { PersistGate } from "redux-persist/integration/react";
@@ -34,8 +34,9 @@ export function App() {
         loading={null}
         persistor={persistor}
         onBeforeLift={() => {
-          const lang = store.getState().app.language;
-          i18n.changeLanguage(lang);
+          const { language, loggedIn } = store.getState().app;
+          i18n.changeLanguage(language);
+
           SplashScreen.hideAsync();
         }}
       >

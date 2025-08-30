@@ -1,5 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
+  createNavigationContainerRef,
   createStaticNavigation,
   StaticParamList,
 } from "@react-navigation/native";
@@ -12,6 +13,7 @@ import { Search } from "./screens/Search";
 import { HeaderTitle } from "@react-navigation/elements";
 import { Login } from "./screens/Login";
 import { AdDetails } from "./screens/AdDetails";
+import { store } from "../redux/store";
 
 export function HomeTabs() {
   const HomeTabs = createBottomTabNavigator();
@@ -45,9 +47,13 @@ export function HomeTabs() {
 }
 
 const RootStack = createNativeStackNavigator({
+  initialRouteName: store.getState().app.loggedIn ? "Login" : "HomeTabs",
   screens: {
     Login: {
       screen: Login,
+      options: {
+        headerShown: false,
+      },
     },
     HomeTabs: {
       screen: HomeTabs,
