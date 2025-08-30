@@ -1,7 +1,13 @@
 {
   "welcome": "Welcome",
-  "tabs": {
+  "screens": {
     "home": "Home",
-    "settings": "Settings"
+    "settings": "Settings",
+    "search": "Search",
+    "details": "Details"
+  },
+  "buttons": {
+    "login": "Login",
+    "logout": "Logout"
   }
 }

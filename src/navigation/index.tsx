@@ -5,11 +5,13 @@ import {
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Home } from "./screens/Home";
-
 import { Settings } from "./screens/Settings";
 import MaterialIcons from "@react-native-vector-icons/material-icons";
-import i18n from "../i18n/i18n";
 import { useTranslation } from "react-i18next";
+import { Search } from "./screens/Search";
+import { HeaderTitle } from "@react-navigation/elements";
+import { Login } from "./screens/Login";
+import { AdDetails } from "./screens/AdDetails";
 
 export function HomeTabs() {
   const HomeTabs = createBottomTabNavigator();
@@ -20,8 +22,8 @@ export function HomeTabs() {
         name="Home"
         component={Home}
         options={{
-          title: t("tabs.home"),
-          tabBarLabel: t("tabs.home"),
+          title: t("screens.home"),
+          tabBarLabel: t("screens.home"),
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="home" color={color} size={size} />
           ),
@@ -31,8 +33,8 @@ export function HomeTabs() {
         name="Settings"
         component={Settings}
         options={{
-          title: t("tabs.settings"),
-          tabBarLabel: t("tabs.settings"),
+          title: t("screens.settings"),
+          tabBarLabel: t("screens.settings"),
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="settings" color={color} size={size} />
           ),
@@ -44,6 +46,9 @@ export function HomeTabs() {
 
 const RootStack = createNativeStackNavigator({
   screens: {
+    Login: {
+      screen: Login,
+    },
     HomeTabs: {
       screen: HomeTabs,
       options: {
@@ -52,17 +57,28 @@ const RootStack = createNativeStackNavigator({
       },
     },
 
-    // Settings: {
-    //   screen: Settings,
-    //   options: ({ navigation }) => ({
-    //     presentation: "modal",
-    //     headerRight: () => (
-    //       <HeaderButton onPress={navigation.goBack}>
-    //         <Text>Close</Text>
-    //       </HeaderButton>
-    //     ),
-    //   }),
-    // },
+    Search: {
+      screen: Search,
+      options: () => ({
+        presentation: "modal",
+        animation: "slide_from_bottom",
+        headerTitle: () => {
+          const { t } = useTranslation();
+          return <HeaderTitle children={t("screens.search")} />;
+        },
+      }),
+    },
+    AdDetails: {
+      screen: AdDetails,
+      options: () => ({
+        presentation: "modal",
+        animation: "slide_from_bottom",
+        headerTitle: () => {
+          const { t } = useTranslation();
+          return <HeaderTitle children={t("screens.details")} />;
+        },
+      }),
+    },
   },
 });
 

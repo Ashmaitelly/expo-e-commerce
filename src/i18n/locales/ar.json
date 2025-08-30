@@ -1,7 +1,13 @@
 {
   "welcome": "مرحبًا",
-  "tabs": {
+  "screens": {
     "home": "الصفحة الرئيسية",
-    "settings": "الإعدادات"
+    "settings": "الإعدادات",
+    "search": "بحث",
+    "details": "تفاصيل"
+  },
+  "buttons": {
+    "login": "تسجيل الدخول",
+    "logout": "تسجيل الخروج"
   }
 }
