@@ -7,14 +7,16 @@ import { useTranslation } from "react-i18next";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 
 export function Home() {
-  const ads = getListings();
+  const phones = getListings("phones");
+  const cars = getListings("cars");
+  const apartments = getListings("apartments");
   const { t } = useTranslation();
 
-  const renderCategory = (title: string) => (
+  const renderCategory = (title: string, data: Array<any>) => (
     <>
       <HeaderTitle children={t(title)} style={styles.categoryHeader} />
       <FlatList
-        data={ads}
+        data={data}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <AdListing ad={item} lang="en" />}
         horizontal
@@ -30,9 +32,9 @@ export function Home() {
       <SearchBar disabled />
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        {renderCategory("categories.phones")}
-        {renderCategory("categories.cars")}
-        {renderCategory("categories.apartments")}
+        {renderCategory("categories.phones", phones)}
+        {renderCategory("categories.cars", cars)}
+        {renderCategory("categories.apartments", apartments)}
       </ScrollView>
     </View>
   );

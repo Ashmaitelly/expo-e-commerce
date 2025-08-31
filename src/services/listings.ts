@@ -14,7 +14,7 @@ const listings = [
     price: 114,
     seller: { name: "Class", verified: true },
     location: { en: "Mar Elias", ar: "مار إلياس" },
-    category: "phone",
+    category: "phones",
   },
   {
     id: "2",
@@ -24,7 +24,7 @@ const listings = [
     price: 362,
     seller: { name: "Najem Starcall", verified: true },
     location: { en: "Mar Elias", ar: "مار إلياس" },
-    category: "phone",
+    category: "phones",
   },
   {
     id: "3",
@@ -34,7 +34,7 @@ const listings = [
     price: 256,
     seller: { name: "Mahmoud Itani", verified: false },
     location: { en: "Tareeq Aljdeede, Beirut", ar: "طريق الجديده" },
-    category: "phone",
+    category: "phones",
   },
   {
     id: "4",
@@ -44,7 +44,7 @@ const listings = [
     price: 35000,
     seller: { name: "Masoud Balsam", verified: false },
     location: { en: "Aamchit", ar: "عمشيت" },
-    category: "car",
+    category: "cars",
   },
   {
     id: "5",
@@ -55,7 +55,7 @@ const listings = [
     price: 24800,
     seller: { name: "Nader Motors", verified: true },
     location: { en: "Jbeil", ar: "جبيل" },
-    category: "car",
+    category: "cars",
   },
   {
     id: "6",
@@ -65,16 +65,16 @@ const listings = [
     price: 370000,
     seller: { name: "Karam Real Estate", verified: true },
     location: { en: "Sahel Alma", ar: " سهل علما" },
-    category: "apartment",
+    category: "apartments",
   },
 ];
 
 export const getListings = (query: string = "") => {
-  return query
+  return !query
     ? listings
     : listings.filter(
         (listing) =>
-          listing.title.includes(query) || listing.category === "query"
+          listing.title.includes(query) || listing.category.includes(query)
       );
 };
 
