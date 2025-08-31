@@ -48,7 +48,7 @@ export function Search() {
             (ad: any) =>
               ad.location.en
                 .toLowerCase()
-                .includes(locationFilter.toLowerCase()) ??
+                .includes(locationFilter.toLowerCase()) ||
               ad.location.ar
                 .toLowerCase()
                 .includes(locationFilter.toLowerCase())
