@@ -6,6 +6,7 @@ import {
   StyleSheet,
   ImageSourcePropType,
   TouchableOpacity,
+  Dimensions,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
@@ -34,25 +35,37 @@ export interface Ad {
 interface AdListingProps {
   ad: Ad;
   lang?: "en" | "ar";
+  layout?: "vertical" | "horizontal";
   onPress?: () => void;
 }
 
 const AdListing: React.FC<AdListingProps> = ({
   ad,
   lang = "en",
+  layout = "vertical",
   onPress = () => {},
 }) => {
   const { colors } = useTheme();
+  const isHorizontal = layout === "horizontal";
+
   return (
     <TouchableOpacity
-      style={[styles.card, { backgroundColor: colors.card }]}
+      style={[
+        styles.card,
+        { backgroundColor: colors.card },
+        isHorizontal && styles.cardHorizontal,
+      ]}
       onPress={onPress}
     >
       {/* Image */}
-      <Image source={ad.image} style={styles.image} resizeMode="cover" />
+      <Image
+        source={ad.image}
+        style={[styles.image, isHorizontal && styles.imageHorizontal]}
+        resizeMode="cover"
+      />
 
       {/* Info */}
-      <View style={styles.info}>
+      <View style={[styles.info, isHorizontal && styles.infoHorizontal]}>
         <Text style={[styles.title, { color: colors.text }]} numberOfLines={1}>
           {ad.title}
         </Text>
@@ -98,8 +111,12 @@ const styles = StyleSheet.create({
     elevation: 3,
     width: 240,
     alignItems: "center",
-    flexWrap: "wrap",
+    flexDirection: "column",
+  },
+  cardHorizontal: {
     flexDirection: "row",
+    width: Dimensions.get("screen").width * 0.85,
+    alignItems: "flex-start",
   },
   image: {
     width: "100%",
@@ -107,8 +124,17 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 8,
   },
+  imageHorizontal: {
+    width: 120,
+    height: 120,
+    marginRight: 12,
+    marginBottom: 0,
+  },
   info: {
     width: "100%",
+  },
+  infoHorizontal: {
+    flex: 1,
   },
   title: {
     fontSize: 15,

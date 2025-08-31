@@ -48,7 +48,9 @@ export function Search() {
         <FlatList
           data={data}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <AdListing ad={item} lang="en" />}
+          renderItem={({ item }) => (
+            <AdListing ad={item} lang="en" layout="horizontal" />
+          )}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ width: "100%" }}
         />
