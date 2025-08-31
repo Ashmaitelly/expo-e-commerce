@@ -1,5 +1,10 @@
 import { Text } from "@react-navigation/elements";
-import { StyleSheet, View, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
 import LanguageToggle from "../../components/LanguageToggle";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
@@ -9,16 +14,23 @@ import {
   useTheme,
 } from "@react-navigation/native";
 import { logout } from "../../redux/slices/appSlice";
+import { useState } from "react";
 
 export function Settings() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const { colors } = useTheme();
+  const [loading, setLoading] = useState(false);
 
   const handleLogout = () => {
-    dispatch(logout());
-    navigation.dispatch(StackActions.replace("Login"));
+    setLoading(true);
+
+    new Promise((resolve) => setTimeout(resolve, 1500)).then(() => {
+      dispatch(logout());
+      setLoading(false);
+      navigation.dispatch(StackActions.replace("Login"));
+    });
   };
 
   return (
@@ -33,11 +45,18 @@ export function Settings() {
       <TouchableOpacity
         style={[styles.logoutButton, { backgroundColor: colors.notification }]}
         onPress={handleLogout}
+        disabled={loading}
       >
         <Text style={[styles.logoutText, { color: colors.text }]}>
           {t("login.logout")}
         </Text>
       </TouchableOpacity>
+
+      {loading && (
+        <View style={styles.loaderOverlay}>
+          <ActivityIndicator size="large" color={colors.primary} />
+        </View>
+      )}
     </View>
   );
 }
@@ -46,12 +65,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-  },
-
-  title: {
-    fontSize: 22,
-    fontWeight: "700",
-    marginBottom: 20,
   },
 
   section: {
@@ -82,5 +95,16 @@ const styles = StyleSheet.create({
   logoutText: {
     fontSize: 16,
     fontWeight: "600",
+  },
+
+  loaderOverlay: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: "rgba(0,0,0,0.3)",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
