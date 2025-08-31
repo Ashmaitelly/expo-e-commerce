@@ -1,21 +1,14 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
+import { View, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation, useTheme } from "@react-navigation/native";
-import MaterialIcons from "@react-native-vector-icons/material-icons";
 
 interface SearchBarProps {
-  disabled?: boolean; // if true → behaves like a button
+  disabled?: boolean; // behaves like a button if true
   placeholder?: string;
   initialValue?: string;
   onSearch?: (query: string) => void;
-  navigateTo?: string; // screen to open when disabled
+  navigateTo?: string;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({
@@ -29,50 +22,34 @@ const SearchBar: React.FC<SearchBarProps> = ({
   const navigation = useNavigation();
   const { colors } = useTheme();
 
-  const handleSearch = () => {
-    if (disabled) {
-      navigation.navigate(navigateTo as never);
-    } else {
-      onSearch?.(query);
-    }
+  const handlePress = () => {
+    if (disabled) navigation.navigate(navigateTo as never);
+    else onSearch?.(query);
   };
 
-  if (disabled) {
-    return (
-      <TouchableOpacity
-        style={[styles.container, { backgroundColor: colors.border }]}
-        activeOpacity={0.7}
-        onPress={handleSearch}
-      >
-        <Ionicons
-          name="search"
-          size={20}
-          color={colors.text}
-          style={styles.icon}
-        />
-        <Text style={styles.placeholder}>{placeholder}</Text>
-      </TouchableOpacity>
-    );
-  }
-
-  // 🔹 Real input mode
   return (
-    <View style={[styles.container, { backgroundColor: colors.border }]}>
-      <MaterialIcons
+    <TouchableOpacity
+      activeOpacity={disabled ? 0.7 : 1}
+      onPress={handlePress}
+      style={[styles.container, { backgroundColor: colors.border }]}
+      disabled={!disabled}
+    >
+      <Ionicons
         name="search"
         size={20}
         color={colors.text}
         style={styles.icon}
       />
       <TextInput
-        style={styles.input}
+        style={[styles.input, { color: colors.text }]}
         placeholder={placeholder}
+        placeholderTextColor="#666"
         value={query}
         onChangeText={setQuery}
-        returnKeyType="search"
-        onSubmitEditing={handleSearch}
+        editable={!disabled}
+        onSubmitEditing={handlePress}
       />
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -83,7 +60,6 @@ const styles = StyleSheet.create({
     width: "85%",
     borderRadius: 12,
     paddingHorizontal: 12,
-    paddingVertical: 10,
     marginVertical: 10,
   },
   input: {
@@ -92,10 +68,6 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 8,
-  },
-  placeholder: {
-    color: "#666",
-    fontSize: 16,
   },
 });
 

@@ -7,7 +7,7 @@ import {
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Home } from "./screens/Home";
 import { Settings } from "./screens/Settings";
-import MaterialIcons from "@react-native-vector-icons/material-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 import { Search } from "./screens/Search";
 import { HeaderTitle } from "@react-navigation/elements";

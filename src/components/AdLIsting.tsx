@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
     width: 240, // 👈 fixed width for horizontal scroll
     alignItems: "center",
     flexWrap: "wrap",
+    flexDirection: "column",
   },
   image: {
     width: "100%",
