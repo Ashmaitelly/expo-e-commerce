@@ -6,6 +6,10 @@
     "search": "بحث",
     "details": "تفاصيل"
   },
+  "settings": {
+    "language": "لغة",
+    "theme": "مظهر"
+  },
   "login": {
     "username": "اسم المستخدم",
     "password": "كلمة المرور",

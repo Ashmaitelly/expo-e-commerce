@@ -1,7 +1,8 @@
 {
   "welcome": "Welcome",
   "settings": {
-    "language": "Language"
+    "language": "Language",
+    "theme": "Theme"
   },
   "screens": {
     "home": "Home",
