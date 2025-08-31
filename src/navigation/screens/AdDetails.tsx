@@ -6,12 +6,15 @@ import {
   Image,
   ScrollView,
   ActivityIndicator,
+  TouchableOpacity,
+  Linking,
 } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { getListingById } from "../../services/listings";
 import { useRoute, RouteProp } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 type AdDetailsRouteProp = RouteProp<{ params: { id: string } }, "params">;
 
@@ -20,6 +23,7 @@ export function AdDetails() {
   const route = useRoute<AdDetailsRouteProp>();
   const { id } = route.params;
   const { i18n, t } = useTranslation();
+  const { bottom } = useSafeAreaInsets();
 
   const [listing, setListing] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
@@ -61,11 +65,24 @@ export function AdDetails() {
     );
   }
 
+  const handleCall = () => {
+    if (listing.seller?.phone) {
+      Linking.openURL(`tel:${listing.seller.phone}`);
+    }
+  };
+
+  const handleEmail = () => {
+    if (listing.seller?.email) {
+      Linking.openURL(`mailto:${listing.seller.email}`);
+    }
+  };
+
   return (
     <ScrollView
+      showsVerticalScrollIndicator={false}
       contentContainerStyle={[
         styles.container,
-        { backgroundColor: colors.background },
+        { backgroundColor: colors.background, paddingBottom: bottom },
       ]}
     >
       {/* Image */}
@@ -112,6 +129,28 @@ export function AdDetails() {
             {listing.location[i18n.language]}
           </Text>
         </View>
+      </View>
+
+      {/* Contact Buttons */}
+      <View style={styles.contactRow}>
+        {listing.seller.phone && (
+          <TouchableOpacity
+            style={[styles.button, { backgroundColor: colors.primary }]}
+            onPress={handleCall}
+          >
+            <MaterialIcons name="call" size={18} color="#fff" />
+            <Text style={styles.buttonText}>{listing.seller.phone}</Text>
+          </TouchableOpacity>
+        )}
+        {listing.seller.email && (
+          <TouchableOpacity
+            style={[styles.button, { backgroundColor: "#2c7" }]}
+            onPress={handleEmail}
+          >
+            <MaterialIcons name="email" size={18} color="#fff" />
+            <Text style={styles.buttonText}>{listing.seller.email}</Text>
+          </TouchableOpacity>
+        )}
       </View>
 
       {/* Description Subtitle */}
@@ -188,5 +227,21 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 15,
     lineHeight: 22,
+  },
+  contactRow: {
+    flexDirection: "column",
+    gap: 10,
+    marginVertical: 12,
+  },
+  button: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    padding: 12,
+    borderRadius: 8,
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "500",
   },
 });

@@ -20,9 +20,10 @@ Asset.loadAsync([
   require("./assets/yukon.png"),
   require("./assets/jeep.png"),
   require("./assets/villa.png"),
+  require("./assets/apartment.png"),
 ]);
 
-SplashScreen.preventAutoHideAsync();
+// SplashScreen.preventAutoHideAsync();
 
 const prefix = createURL("/");
 
@@ -39,7 +40,7 @@ export function App() {
         loading={null}
         persistor={persistor}
         onBeforeLift={() => {
-          const { language, loggedIn } = store.getState().app;
+          const { language } = store.getState().app;
           i18n.changeLanguage(language);
 
           SplashScreen.hideAsync();

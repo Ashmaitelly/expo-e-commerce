@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
 
   flatListContent: {
     paddingHorizontal: 10,
-    alignItems: "flex-start",
+    alignItems: "flex-end",
   },
 
   loaderContainer: {

@@ -11,6 +11,7 @@ import AdListing from "../../components/AdLIsting";
 import { useState, useEffect } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export function Search() {
   const [query, setQuery] = useState("");
@@ -37,8 +38,9 @@ export function Search() {
   const { colors } = useTheme();
   const nav = useNavigation();
   const { i18n } = useTranslation();
+  const { bottom } = useSafeAreaInsets();
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingBottom: bottom }]}>
       <SearchBar value={query} onInput={setQuery} placeholder="Search ads..." />
       {loading ? (
         <KeyboardAvoidingView style={{ flex: 1, alignItems: "center" }}>

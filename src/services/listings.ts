@@ -4,6 +4,7 @@ import spark from "../assets/spark40c.png";
 import yukon from "../assets/yukon.png";
 import jeep from "../assets/jeep.png";
 import villa from "../assets/villa.png";
+import apartment from "../assets/apartment.png";
 
 const listings = [
   {
@@ -95,6 +96,22 @@ const listings = [
       email: "karam.realestate@example.com",
     },
     location: { en: "Sahel Alma", ar: " سهل علما" },
+    category: "apartments",
+  },
+  {
+    id: "7",
+    title: "Modern Apartment in Beirut",
+    description:
+      "120 m² apartment, 2 bedrooms, 2 bathrooms, fully furnished with sea view. Located in Ain El Mreisseh.",
+    image: apartment,
+    price: 180000,
+    seller: {
+      name: "Beirut Living",
+      verified: false,
+      phone: "+961 71 789 012",
+      email: "beirut.living@example.com",
+    },
+    location: { en: "Ain El Mreisseh", ar: "عين المريسة" },
     category: "apartments",
   },
 ];

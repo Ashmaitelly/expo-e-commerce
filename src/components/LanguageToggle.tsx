@@ -18,7 +18,6 @@ const LanguageToggle = () => {
     const newLang = i18n.language === "en" ? "ar" : "en";
     const isRTL = languages[newLang as LanguageCode].rtl;
 
-    i18n.changeLanguage(newLang);
     dispatch(setLanguage(newLang));
 
     if (I18nManager.isRTL !== isRTL) {
