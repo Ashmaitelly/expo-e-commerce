@@ -1,5 +1,8 @@
 {
   "welcome": "Welcome",
+  "settings": {
+    "language": "Language"
+  },
   "screens": {
     "home": "Home",
     "settings": "Settings",
@@ -12,5 +15,10 @@
     "login": "Login",
     "logout": "Logout",
     "error": "Incorrect Username or Password"
+  },
+  "categories": {
+    "phones": "Mobile Phones",
+    "cars": "Cars for Sale",
+    "apartments": "Apartments"
   }
 }

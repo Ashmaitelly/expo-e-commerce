@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useTheme } from "@react-navigation/native";
 
 interface Seller {
   name: string;
@@ -41,16 +42,28 @@ const AdListing: React.FC<AdListingProps> = ({
   lang = "en",
   onPress = () => {},
 }) => {
+  const { colors } = useTheme();
   return (
-    <TouchableOpacity style={styles.card} onPress={onPress}>
+    <TouchableOpacity
+      style={[styles.card, { backgroundColor: colors.card }]}
+      onPress={onPress}
+    >
       {/* Image */}
-      <Image source={ad.image} style={styles.image} resizeMode="contain" />
+      <Image source={ad.image} style={styles.image} resizeMode="cover" />
 
       {/* Info */}
       <View style={styles.info}>
-        <Text style={styles.title}>{ad.title}</Text>
+        <Text style={[styles.title, { color: colors.text }]} numberOfLines={1}>
+          {ad.title}
+        </Text>
         {ad.description && (
-          <Text style={styles.description}>{ad.description}</Text>
+          <Text
+            style={styles.description}
+            numberOfLines={1}
+            ellipsizeMode="tail"
+          >
+            {ad.description}
+          </Text>
         )}
 
         {/* Price */}
@@ -75,8 +88,6 @@ export default AdListing;
 
 const styles = StyleSheet.create({
   card: {
-    flexDirection: "row",
-    backgroundColor: "#fff",
     borderRadius: 12,
     margin: 10,
     padding: 12,
@@ -85,35 +96,39 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 6,
     elevation: 3,
+    width: 240, // 👈 fixed width for horizontal scroll
+    alignItems: "center",
+    flexWrap: "wrap",
   },
   image: {
-    width: 100,
-    height: 100,
+    width: "100%",
+    height: 120,
     borderRadius: 10,
-    marginRight: 12,
+    marginBottom: 8,
   },
   info: {
-    flex: 1,
-    justifyContent: "space-between",
+    width: "100%",
   },
   title: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: "600",
+    marginBottom: 2,
   },
   description: {
-    fontSize: 13,
+    fontSize: 12,
     color: "#666",
-    marginVertical: 2,
+    marginBottom: 4,
   },
   price: {
     fontSize: 15,
     fontWeight: "bold",
     color: "#2c7",
+    marginBottom: 4,
   },
   sellerRow: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 4,
+    marginBottom: 2,
   },
   sellerName: {
     marginRight: 6,
@@ -123,6 +138,5 @@ const styles = StyleSheet.create({
   location: {
     fontSize: 12,
     color: "#999",
-    marginTop: 4,
   },
 });

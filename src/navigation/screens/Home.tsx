@@ -1,18 +1,39 @@
-import MaterialIcons from "@react-native-vector-icons/material-icons";
-import { Button, Text } from "@react-navigation/elements";
-import { useNavigation } from "@react-navigation/native";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { HeaderTitle } from "@react-navigation/elements";
+import { StyleSheet, View } from "react-native";
 import SearchBar from "../../components/SearchBar";
-import AdListing, { Ad } from "../../components/AdLIsting";
-import Samsung from "../../assets/SamsungA56.png";
+import AdListing from "../../components/AdLIsting";
 import { getListings } from "../../services/listings";
+import { useTranslation } from "react-i18next";
+import { FlatList, ScrollView } from "react-native-gesture-handler";
 
 export function Home() {
-  const sampleAd = getListings()[0];
+  const ads = getListings();
+  const { t } = useTranslation();
+
+  const renderCategory = (title: string) => (
+    <>
+      <HeaderTitle children={t(title)} style={styles.categoryHeader} />
+      <FlatList
+        data={ads}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <AdListing ad={item} lang="en" />}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.flatListContent}
+        style={styles.flatList}
+      />
+    </>
+  );
+
   return (
     <View style={styles.container}>
       <SearchBar disabled />
-      <AdListing ad={sampleAd} lang="en" />
+
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {renderCategory("categories.phones")}
+        {renderCategory("categories.cars")}
+        {renderCategory("categories.apartments")}
+      </ScrollView>
     </View>
   );
 }
@@ -20,8 +41,8 @@ export function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
     gap: 10,
+    alignItems: "center",
   },
 
   searchContainer: {
@@ -33,8 +54,22 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     marginVertical: 10,
   },
+
   placeholder: {
     color: "#666",
     fontSize: 16,
+  },
+
+  categoryHeader: {
+    textAlign: "left",
+    width: "100%",
+    paddingHorizontal: 30,
+  },
+
+  flatList: {},
+
+  flatListContent: {
+    paddingHorizontal: 10,
+    alignItems: "flex-start",
   },
 });

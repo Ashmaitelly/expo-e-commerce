@@ -13,7 +13,7 @@ const listings = [
     image: spark,
     price: 114,
     seller: { name: "Class", verified: true },
-    location: { en: "Marelias,Beirut", ar: "مار إلياس" },
+    location: { en: "Mar Elias", ar: "مار إلياس" },
     category: "phone",
   },
   {
