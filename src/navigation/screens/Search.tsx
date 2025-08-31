@@ -39,9 +39,10 @@ export function Search() {
   const nav = useNavigation();
   const { i18n } = useTranslation();
   const { bottom } = useSafeAreaInsets();
+  const { t } = useTranslation();
   return (
     <View style={[styles.container, { paddingBottom: bottom }]}>
-      <SearchBar value={query} onInput={setQuery} placeholder="Search ads..." />
+      <SearchBar value={query} onInput={setQuery} />
       {loading ? (
         <KeyboardAvoidingView style={{ flex: 1, alignItems: "center" }}>
           <ActivityIndicator

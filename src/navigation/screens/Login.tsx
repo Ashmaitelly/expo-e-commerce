@@ -63,7 +63,6 @@ export function Login() {
         style={[styles.input, { borderColor: "grey", color: colors.text }]}
         placeholder={t("login.username")}
         placeholderTextColor={"grey"}
-        keyboardType="email-address"
         autoCapitalize="none"
         value={username}
         onChangeText={setUsername}
@@ -74,6 +73,7 @@ export function Login() {
         placeholderTextColor={"grey"}
         placeholder={t("login.password")}
         secureTextEntry
+        autoCapitalize="none"
         value={password}
         onChangeText={setPassword}
         textAlign={I18nManager.isRTL ? "right" : "left"}

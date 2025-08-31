@@ -13,7 +13,6 @@ import { Search } from "./screens/Search";
 import { HeaderTitle } from "@react-navigation/elements";
 import { Login } from "./screens/Login";
 import { AdDetails } from "./screens/AdDetails";
-import { store } from "../redux/store";
 import { AppSplash } from "./screens/AppSplash";
 
 export function HomeTabs() {

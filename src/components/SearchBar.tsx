@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation, useTheme } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 
 interface SearchBarProps {
   disabled?: boolean; // behaves like a button if true
@@ -13,7 +14,7 @@ interface SearchBarProps {
 
 const SearchBar: React.FC<SearchBarProps> = ({
   disabled = false,
-  placeholder = "Search",
+
   value = "",
 
   onInput = () => {},
@@ -21,6 +22,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
 }) => {
   const navigation = useNavigation();
   const { colors } = useTheme();
+  const { t } = useTranslation();
 
   const handlePress = () => {
     if (disabled) navigation.navigate(navigateTo as never);
@@ -41,7 +43,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
       />
       <TextInput
         style={[styles.input, { color: colors.text }]}
-        placeholder={placeholder}
+        placeholder={t("search")}
         placeholderTextColor="#666"
         value={value}
         onChangeText={(value) => {
