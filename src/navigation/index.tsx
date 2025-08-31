@@ -66,8 +66,6 @@ const RootStack = createNativeStackNavigator({
     Search: {
       screen: Search,
       options: () => ({
-        presentation: "modal",
-        animation: "slide_from_bottom",
         headerTitle: () => {
           const { t } = useTranslation();
           return <HeaderTitle children={t("screens.search")} />;
@@ -77,8 +75,6 @@ const RootStack = createNativeStackNavigator({
     AdDetails: {
       screen: AdDetails,
       options: () => ({
-        presentation: "modal",
-        animation: "slide_from_bottom",
         headerTitle: () => {
           const { t } = useTranslation();
           return <HeaderTitle children={t("screens.details")} />;

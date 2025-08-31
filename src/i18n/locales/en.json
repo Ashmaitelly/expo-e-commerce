@@ -20,5 +20,9 @@
     "phones": "Mobile Phones",
     "cars": "Cars for Sale",
     "apartments": "Apartments"
+  },
+  "details": {
+    "seller": "Seller:",
+    "description": "Description"
   }
 }

@@ -17,5 +17,9 @@
     "phones": "الهواتف المحمولة",
     "cars": "سيارات للبيع",
     "apartments": "شقق"
+  },
+  "details": {
+    "seller": "البائع:",
+    "description": "الوصف"
   }
 }

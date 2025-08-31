@@ -6,28 +6,29 @@ import { getListings } from "../../services/listings";
 import { useTranslation } from "react-i18next";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import { useEffect, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import i18n from "../../i18n/i18n";
 
 export function Home() {
   const { t } = useTranslation();
+  const nav = useNavigation();
 
-  // states for data and loading
+  // states
   const [loading, setLoading] = useState(true);
   const [phones, setPhones] = useState([]);
   const [cars, setCars] = useState([]);
   const [apartments, setApartments] = useState([]);
 
-  // simulate fetching data on first navigation
   useEffect(() => {
     setLoading(true);
 
     const fetchData = async () => {
-      // simulate network delay
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      setPhones(getListings("phones"));
-      setCars(getListings("cars"));
-      setApartments(getListings("apartments"));
-      setLoading(false);
+      await new Promise((resolve) => setTimeout(resolve, 2000)).then(() => {
+        setPhones(getListings("phones"));
+        setCars(getListings("cars"));
+        setApartments(getListings("apartments"));
+        setLoading(false);
+      });
     };
 
     fetchData();
@@ -45,7 +46,15 @@ export function Home() {
         <FlatList
           data={data}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <AdListing ad={item} lang="en" />}
+          renderItem={({ item }) => (
+            <AdListing
+              ad={item}
+              lang={i18n.language}
+              onPress={() => {
+                nav.navigate("AdDetails", { id: item.id });
+              }}
+            />
+          )}
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.flatListContent}

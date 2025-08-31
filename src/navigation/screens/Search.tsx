@@ -9,7 +9,8 @@ import SearchBar from "../../components/SearchBar";
 import { getListings } from "../../services/listings";
 import AdListing from "../../components/AdLIsting";
 import { useState, useEffect } from "react";
-import { useTheme } from "@react-navigation/native";
+import { useNavigation, useTheme } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 
 export function Search() {
   const [query, setQuery] = useState("");
@@ -27,12 +28,15 @@ export function Search() {
         setData(results);
         setLoading(false);
       });
-    }, 500); // debounce
+    }, 500);
 
-    return () => clearTimeout(handler); // cleanup if query changes
+    return () => clearTimeout(handler);
   }, [query]);
 
+  //hooks
   const { colors } = useTheme();
+  const nav = useNavigation();
+  const { i18n } = useTranslation();
   return (
     <View style={styles.container}>
       <SearchBar value={query} onInput={setQuery} placeholder="Search ads..." />
@@ -49,7 +53,14 @@ export function Search() {
           data={data}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <AdListing ad={item} lang="en" layout="horizontal" />
+            <AdListing
+              ad={item}
+              lang={i18n.language}
+              layout="horizontal"
+              onPress={() => {
+                nav.navigate("AdDetails", { id: item.id });
+              }}
+            />
           )}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ width: "100%" }}

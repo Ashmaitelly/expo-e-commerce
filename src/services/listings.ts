@@ -33,7 +33,7 @@ const listings = [
     description: "Used Samsung A56",
     price: 256,
     seller: { name: "Mahmoud Itani", verified: false },
-    location: { en: "Tareeq Aljdeede, Beirut", ar: "طريق الجديده" },
+    location: { en: "Tareeq Aljdeede", ar: "طريق الجديده" },
     category: "phones",
   },
   {

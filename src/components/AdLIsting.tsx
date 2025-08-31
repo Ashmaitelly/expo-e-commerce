@@ -80,7 +80,7 @@ const AdListing: React.FC<AdListingProps> = ({
         )}
 
         {/* Price */}
-        <Text style={styles.price}>${ad.price}</Text>
+        <Text style={styles.price}>{ad.price}$</Text>
 
         {/* Seller */}
         <View style={styles.sellerRow}>
