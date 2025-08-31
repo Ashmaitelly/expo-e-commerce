@@ -36,30 +36,12 @@ export function Search() {
       setLoading(true);
 
       new Promise((resolve) => {
-        let results = getListings(query);
-
-        if (priceFilter) {
-          results = results.filter(
-            (ad: any) => ad.price <= parseFloat(priceFilter)
-          );
-        }
-        if (locationFilter) {
-          results = results.filter(
-            (ad: any) =>
-              ad.location.en
-                .toLowerCase()
-                .includes(locationFilter.toLowerCase()) ||
-              ad.location.ar
-                .toLowerCase()
-                .includes(locationFilter.toLowerCase())
-          );
-        }
-        if (categoryFilter) {
-          results = results.filter(
-            (ad: any) =>
-              ad.category.toLowerCase() === categoryFilter.toLowerCase()
-          );
-        }
+        const results = getListings(
+          query,
+          categoryFilter,
+          priceFilter,
+          locationFilter
+        );
 
         setTimeout(() => resolve(results), 500);
       }).then((results: any) => {

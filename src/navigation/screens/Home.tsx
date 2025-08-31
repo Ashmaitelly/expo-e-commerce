@@ -2,7 +2,7 @@ import { HeaderTitle } from "@react-navigation/elements";
 import { StyleSheet, View, ActivityIndicator, Dimensions } from "react-native";
 import SearchBar from "../../components/SearchBar";
 import AdListing from "../../components/AdLIsting";
-import { getListingsByCategory } from "../../services/listings";
+import { getListings, getListingsByCategory } from "../../services/listings";
 import { useTranslation } from "react-i18next";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import { useEffect, useState } from "react";
@@ -24,9 +24,9 @@ export function Home() {
 
     const fetchData = async () => {
       await new Promise((resolve) => setTimeout(resolve, 2000)).then(() => {
-        setPhones(getListingsByCategory("phones"));
-        setCars(getListingsByCategory("cars"));
-        setApartments(getListingsByCategory("apartments"));
+        setPhones(getListings("", "phones"));
+        setCars(getListings("", "cars"));
+        setApartments(getListings("", "apartments"));
         setLoading(false);
       });
     };

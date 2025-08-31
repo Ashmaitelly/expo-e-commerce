@@ -116,16 +116,27 @@ const listings = [
   },
 ];
 
-export const getListings = (query: string = "") => {
-  return !query
-    ? listings
-    : listings.filter((listing) =>
-        listing.title.toLocaleLowerCase().includes(query.toLocaleLowerCase())
-      );
-};
-
-export const getListingsByCategory = (query: string = "") => {
-  return listings.filter((listing) => listing.category === query);
+export const getListings = (
+  title: string = "",
+  category = "",
+  price = "",
+  location = ""
+) => {
+  return listings
+    .filter((listing) =>
+      title
+        ? listing.title.toLocaleLowerCase().includes(title.toLocaleLowerCase())
+        : true
+    )
+    .filter((listing) => (category ? listing.category === category : true))
+    .filter((listing) => (price ? parseFloat(price) >= listing.price : true))
+    .filter((listing) =>
+      location
+        ? Object.values(listing.location).some((item) =>
+            item.toLowerCase().includes(location.toLowerCase())
+          )
+        : true
+    );
 };
 
 export const getListingById = (id: string) => {
