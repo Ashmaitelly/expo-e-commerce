@@ -15,6 +15,10 @@ Asset.loadAsync([
   ...NavigationAssets,
   require("./assets/SamsungA56.png"),
   require("./assets/iphone12.png"),
+  require("./assets/spark40c.png"),
+  require("./assets/yukon.png"),
+  require("./assets/jeep.png"),
+  require("./assets/villa.png"),
 ]);
 
 SplashScreen.preventAutoHideAsync();

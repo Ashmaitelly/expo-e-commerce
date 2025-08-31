@@ -3,12 +3,16 @@ import { Button, Text } from "@react-navigation/elements";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import SearchBar from "../../components/SearchBar";
+import AdListing, { Ad } from "../../components/AdLIsting";
+import Samsung from "../../assets/SamsungA56.png";
+import { getListings } from "../../services/listings";
 
 export function Home() {
-  const navigation = useNavigation();
+  const sampleAd = getListings()[0];
   return (
     <View style={styles.container}>
       <SearchBar disabled />
+      <AdListing ad={sampleAd} lang="en" />
     </View>
   );
 }

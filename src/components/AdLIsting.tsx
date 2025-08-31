@@ -5,6 +5,7 @@ import {
   Image,
   StyleSheet,
   ImageSourcePropType,
+  TouchableOpacity,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
@@ -32,11 +33,16 @@ export interface Ad {
 interface AdListingProps {
   ad: Ad;
   lang?: "en" | "ar";
+  onPress?: () => void;
 }
 
-const AdListing: React.FC<AdListingProps> = ({ ad, lang = "en" }) => {
+const AdListing: React.FC<AdListingProps> = ({
+  ad,
+  lang = "en",
+  onPress = () => {},
+}) => {
   return (
-    <View style={styles.card}>
+    <TouchableOpacity style={styles.card} onPress={onPress}>
       {/* Image */}
       <Image source={ad.image} style={styles.image} resizeMode="contain" />
 
@@ -61,7 +67,7 @@ const AdListing: React.FC<AdListingProps> = ({ ad, lang = "en" }) => {
         {/* Location */}
         <Text style={styles.location}>{ad.location[lang]}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
