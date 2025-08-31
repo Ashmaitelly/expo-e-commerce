@@ -124,6 +124,10 @@ export const getListings = (query: string = "") => {
       );
 };
 
+export const getListingsByCategory = (query: string = "") => {
+  return listings.filter((listing) => listing.category === query);
+};
+
 export const getListingById = (id: string) => {
   return listings.find((listing) => listing.id === id);
 };

@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
   },
   cardHorizontal: {
     flexDirection: "row",
-    width: Dimensions.get("screen").width * 0.85,
+    width: Dimensions.get("screen").width * 0.9,
     alignItems: "flex-start",
   },
   image: {

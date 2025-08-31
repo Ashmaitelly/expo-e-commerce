@@ -2,7 +2,7 @@ import { HeaderTitle } from "@react-navigation/elements";
 import { StyleSheet, View, ActivityIndicator, Dimensions } from "react-native";
 import SearchBar from "../../components/SearchBar";
 import AdListing from "../../components/AdLIsting";
-import { getListings } from "../../services/listings";
+import { getListingsByCategory } from "../../services/listings";
 import { useTranslation } from "react-i18next";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import { useEffect, useState } from "react";
@@ -24,9 +24,9 @@ export function Home() {
 
     const fetchData = async () => {
       await new Promise((resolve) => setTimeout(resolve, 2000)).then(() => {
-        setPhones(getListings("phones"));
-        setCars(getListings("cars"));
-        setApartments(getListings("apartments"));
+        setPhones(getListingsByCategory("phones"));
+        setCars(getListingsByCategory("cars"));
+        setApartments(getListingsByCategory("apartments"));
         setLoading(false);
       });
     };
@@ -58,7 +58,6 @@ export function Home() {
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.flatListContent}
-          style={styles.flatList}
         />
       )}
     </View>
@@ -92,15 +91,12 @@ const styles = StyleSheet.create({
   categoryHeader: {
     textAlign: "left",
     width: "100%",
-    paddingHorizontal: 30,
+    paddingHorizontal: 10,
     marginBottom: 10,
   },
 
-  flatList: {},
-
   flatListContent: {
-    paddingHorizontal: 10,
-    alignItems: "flex-end",
+    alignItems: "flex-start",
   },
 
   loaderContainer: {
