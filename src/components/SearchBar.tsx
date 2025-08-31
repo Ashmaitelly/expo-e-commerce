@@ -6,25 +6,24 @@ import { useNavigation, useTheme } from "@react-navigation/native";
 interface SearchBarProps {
   disabled?: boolean; // behaves like a button if true
   placeholder?: string;
-  initialValue?: string;
-  onSearch?: (query: string) => void;
+  value?: string;
+  onInput?: (query: string) => void;
   navigateTo?: string;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({
   disabled = false,
   placeholder = "Search",
-  initialValue = "",
-  onSearch,
+  value = "",
+
+  onInput = () => {},
   navigateTo = "Search",
 }) => {
-  const [query, setQuery] = useState(initialValue);
   const navigation = useNavigation();
   const { colors } = useTheme();
 
   const handlePress = () => {
     if (disabled) navigation.navigate(navigateTo as never);
-    else onSearch?.(query);
   };
 
   return (
@@ -44,10 +43,11 @@ const SearchBar: React.FC<SearchBarProps> = ({
         style={[styles.input, { color: colors.text }]}
         placeholder={placeholder}
         placeholderTextColor="#666"
-        value={query}
-        onChangeText={setQuery}
+        value={value}
+        onChangeText={(value) => {
+          onInput(value);
+        }}
         editable={!disabled}
-        onSubmitEditing={handlePress}
       />
     </TouchableOpacity>
   );

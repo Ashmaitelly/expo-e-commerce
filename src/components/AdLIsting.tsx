@@ -96,10 +96,10 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 6,
     elevation: 3,
-    width: 240, // 👈 fixed width for horizontal scroll
+    width: 240,
     alignItems: "center",
     flexWrap: "wrap",
-    flexDirection: "column",
+    flexDirection: "row",
   },
   image: {
     width: "100%",

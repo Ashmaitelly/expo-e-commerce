@@ -74,7 +74,10 @@ export const getListings = (query: string = "") => {
     ? listings
     : listings.filter(
         (listing) =>
-          listing.title.includes(query) || listing.category.includes(query)
+          listing.title
+            .toLocaleLowerCase()
+            .includes(query.toLocaleLowerCase()) ||
+          listing.category.includes(query.toLocaleLowerCase())
       );
 };
 
