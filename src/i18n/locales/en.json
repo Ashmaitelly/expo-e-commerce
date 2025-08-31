@@ -1,6 +1,11 @@
 {
   "welcome": "Welcome",
   "search": "Search ads...",
+  "filters": {
+    "price": "Max price",
+    "location": "Location",
+    "category": "Category"
+  },
   "settings": {
     "language": "Language",
     "theme": "Theme"

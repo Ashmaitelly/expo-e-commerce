@@ -119,12 +119,8 @@ const listings = [
 export const getListings = (query: string = "") => {
   return !query
     ? listings
-    : listings.filter(
-        (listing) =>
-          listing.title
-            .toLocaleLowerCase()
-            .includes(query.toLocaleLowerCase()) ||
-          listing.category.includes(query.toLocaleLowerCase())
+    : listings.filter((listing) =>
+        listing.title.toLocaleLowerCase().includes(query.toLocaleLowerCase())
       );
 };
 

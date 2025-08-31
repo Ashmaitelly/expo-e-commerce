@@ -4,7 +4,9 @@ import {
   View,
   ActivityIndicator,
   KeyboardAvoidingView,
+  TextInput,
 } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 import SearchBar from "../../components/SearchBar";
 import { getListings } from "../../services/listings";
 import AdListing from "../../components/AdLIsting";
@@ -15,34 +17,116 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export function Search() {
   const [query, setQuery] = useState("");
+  const [priceFilter, setPriceFilter] = useState("");
+  const [locationFilter, setLocationFilter] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("");
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
+  const { colors } = useTheme();
+  const nav = useNavigation();
+  const { i18n, t } = useTranslation();
+  const { bottom } = useSafeAreaInsets();
+
+  const categories = ["apartments", "cars", "phones"];
+
+  // Fetch and filter listings
   useEffect(() => {
     const handler = setTimeout(() => {
       setLoading(true);
 
       new Promise((resolve) => {
-        const results = getListings(query); // assume getListings can accept a query
-        setTimeout(() => resolve(results), 2000);
+        let results = getListings(query);
+
+        if (priceFilter) {
+          results = results.filter(
+            (ad: any) => ad.price <= parseFloat(priceFilter)
+          );
+        }
+        if (locationFilter) {
+          results = results.filter(
+            (ad: any) =>
+              ad.location.en
+                .toLowerCase()
+                .includes(locationFilter.toLowerCase()) ??
+              ad.location.ar
+                .toLowerCase()
+                .includes(locationFilter.toLowerCase())
+          );
+        }
+        if (categoryFilter) {
+          results = results.filter(
+            (ad: any) =>
+              ad.category.toLowerCase() === categoryFilter.toLowerCase()
+          );
+        }
+
+        setTimeout(() => resolve(results), 500);
       }).then((results: any) => {
         setData(results);
         setLoading(false);
       });
-    }, 500);
+    }, 300);
 
     return () => clearTimeout(handler);
-  }, [query]);
+  }, [query, priceFilter, locationFilter, categoryFilter]);
 
-  //hooks
-  const { colors } = useTheme();
-  const nav = useNavigation();
-  const { i18n } = useTranslation();
-  const { bottom } = useSafeAreaInsets();
-  const { t } = useTranslation();
   return (
     <View style={[styles.container, { paddingBottom: bottom }]}>
       <SearchBar value={query} onInput={setQuery} />
+
+      {/* Category picker */}
+      <View
+        style={{
+          width: "100%",
+          marginBottom: 5,
+          height: 50,
+          borderColor: colors.border,
+          borderWidth: 1,
+          justifyContent: "center",
+          borderRadius: 8,
+          marginHorizontal: 2,
+        }}
+      >
+        <Picker
+          selectedValue={categoryFilter}
+          onValueChange={(itemValue) => setCategoryFilter(itemValue)}
+          style={{
+            color: categoryFilter ? colors.text : "grey",
+          }}
+        >
+          <Picker.Item label={t("filters.category")} value="" />
+          {categories.map((cat) => (
+            <Picker.Item key={cat} label={t(`categories.${cat}`)} value={cat} />
+          ))}
+        </Picker>
+      </View>
+
+      {/* Price and location inputs row */}
+      <View style={styles.filtersRow}>
+        <TextInput
+          style={[
+            styles.input,
+            { borderColor: colors.border, color: colors.text, borderWidth: 1 },
+          ]}
+          placeholder={t("filters.price")}
+          placeholderTextColor={"grey"}
+          keyboardType="numeric"
+          value={priceFilter}
+          onChangeText={setPriceFilter}
+        />
+        <TextInput
+          style={[
+            styles.input,
+            { borderColor: colors.border, color: colors.text, borderWidth: 1 },
+          ]}
+          placeholder={t("filters.location")}
+          placeholderTextColor={"grey"}
+          value={locationFilter}
+          onChangeText={setLocationFilter}
+        />
+      </View>
+
       {loading ? (
         <KeyboardAvoidingView style={{ flex: 1, alignItems: "center" }}>
           <ActivityIndicator
@@ -60,9 +144,7 @@ export function Search() {
               ad={item}
               lang={i18n.language}
               layout="horizontal"
-              onPress={() => {
-                nav.navigate("AdDetails", { id: item.id });
-              }}
+              onPress={() => nav.navigate("AdDetails", { id: item.id })}
             />
           )}
           showsVerticalScrollIndicator={false}
@@ -78,5 +160,17 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     gap: 10,
+    paddingHorizontal: 10,
+  },
+  filtersRow: {
+    flexDirection: "row",
+    width: "100%",
+    gap: 5,
+  },
+  input: {
+    flex: 1,
+    height: 45,
+    borderRadius: 8,
+    paddingHorizontal: 10,
   },
 });
