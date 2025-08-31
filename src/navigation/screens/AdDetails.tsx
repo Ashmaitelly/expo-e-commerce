@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   Linking,
+  I18nManager,
 } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -96,7 +97,7 @@ export function AdDetails() {
       </Text>
 
       {/* Price */}
-      <Text style={[styles.price, { color: "#2c7" }]}>${listing.price}</Text>
+      <Text style={[styles.price, { color: "#2c7" }]}>{listing.price}$</Text>
 
       {/* Seller & Location Row */}
       <View style={styles.infoRow}>
@@ -162,7 +163,15 @@ export function AdDetails() {
 
       {/* Description */}
       {listing.description && (
-        <Text style={[styles.description, { color: colors.text }]}>
+        <Text
+          style={[
+            styles.description,
+            {
+              color: colors.text,
+              textAlign: I18nManager.isRTL ? "left" : "right",
+            },
+          ]}
+        >
           {listing.description}
         </Text>
       )}

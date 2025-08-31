@@ -14,6 +14,7 @@ import { HeaderTitle } from "@react-navigation/elements";
 import { Login } from "./screens/Login";
 import { AdDetails } from "./screens/AdDetails";
 import { store } from "../redux/store";
+import { AppSplash } from "./screens/AppSplash";
 
 export function HomeTabs() {
   const HomeTabs = createBottomTabNavigator();
@@ -47,8 +48,13 @@ export function HomeTabs() {
 }
 
 const RootStack = createNativeStackNavigator({
-  initialRouteName: store.getState().app.loggedIn ? "Login" : "HomeTabs",
   screens: {
+    SPlash: {
+      screen: AppSplash,
+      options: {
+        headerShown: false,
+      },
+    },
     Login: {
       screen: Login,
       options: {

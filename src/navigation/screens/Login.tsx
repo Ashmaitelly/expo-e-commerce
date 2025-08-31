@@ -59,8 +59,6 @@ export function Login() {
       style={[styles.container]}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <Text style={[styles.title, { color: colors.text }]}>{t("welcome")}</Text>
-
       <TextInput
         style={[styles.input, { borderColor: "grey", color: colors.text }]}
         placeholder={t("login.username")}
