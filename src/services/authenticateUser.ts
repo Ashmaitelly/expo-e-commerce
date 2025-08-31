@@ -1,6 +1,6 @@
 const users = [
   { username: "User", password: "Password" },
-  { username: "olx_usr1", password: "olx_pass" },
+  { username: "usr1", password: "pass" },
 ];
 
 export const authenticateUser = (username: string, password: string) => {
